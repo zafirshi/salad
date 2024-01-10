@@ -29,6 +29,23 @@ model.eval()
 model.cuda()
 ```
 
+## Docker
+If you want to run a program using Docker, you need to create an image:
+```bash
+docker build -t salad .
+```
+Then, use the following command to mount the code and dataset directories, and activate the container.
+```bash
+docker run -itd \
+  -v /work/Code/salad/:/home/shize/Code/salad \
+  -w /home/shize/Code/ \
+  --name=salad \
+  --runtime=nvidia \
+  --restart unless-stopped \
+  --gpus all 
+  salad
+```
+
 ## Dataset
 
 For training, download [GSV-Cities](https://github.com/amaralibey/gsv-cities) dataset. For evaluation download the desired datasets ([MSLS](https://github.com/FrederikWarburg/mapillary_sls), [NordLand](https://surfdrive.surf.nl/files/index.php/s/sbZRXzYe3l0v67W), [SPED](https://surfdrive.surf.nl/files/index.php/s/sbZRXzYe3l0v67W), or [Pittsburgh](https://data.ciirc.cvut.cz/public/projects/2015netVLAD/Pittsburgh250k/))
