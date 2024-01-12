@@ -40,10 +40,15 @@ docker run -itd \
   -v /work/Code/salad/:/home/shize/Code/salad \
   -w /home/shize/Code/ \
   --name=salad \
+  --network host \
+  --shm-size=16g \ 
   --runtime=nvidia \
   --restart unless-stopped \
   --gpus all 
   salad
+```
+```bash
+docker run -itd -v /work/Code/salad/:/home/shize/Code/salad -v /work/Datasets/:/home/shize/Code/data -w /home/shize/Code --name=salad3 --network host --shm-size=16g --runtime=nvidia --restart unless-stopped --gpus all salad-dev
 ```
 
 ## Dataset
@@ -70,20 +75,23 @@ python3 eval.py --ckpt_path 'weights/dino_salad.ckpt' --image_size 322 322 --bat
 <table>
 <thead>
   <tr>
-    <th colspan="3">MSLS Challenge</th>
-    <th colspan="3">MSLS Val</th>
-    <th colspan="3">NordLand</th>
+    <th colspan="4">MSLS Challenge</th>
+    <th colspan="4">MSLS Val</th>
+    <th colspan="4">NordLand</th>
   </tr>
   <tr>
     <th>R@1</th>
     <th>R@5</th>
     <th>R@10</th>
+    <th>R@20</th>
     <th>R@1</th>
     <th>R@5</th>
     <th>R@10</th>
+    <th>R@20</th>
     <th>R@1</th>
     <th>R@5</th>
     <th>R@10</th>
+    <th>R@20</th>
   </tr>
 </thead>
 <tbody>
@@ -91,12 +99,55 @@ python3 eval.py --ckpt_path 'weights/dino_salad.ckpt' --image_size 322 322 --bat
     <td>75.0</td>
     <td>88.8</td>
     <td>91.3</td>
+    <td> -- </td>
     <td>92.2</td>
     <td>96.4</td>
     <td>97.0</td>
+    <td>97.4</td>
     <td>76.0</td>
     <td>89.2</td>
     <td>92.0</td>
+    <td>94.4</td>
+  </tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+  <tr>
+    <th colspan="4">SPED</th>
+    <th colspan="4">pitts30k_test</th>
+    <th colspan="4">pitts250k_test</th>
+  </tr>
+  <tr>
+    <th>R@1</th>
+    <th>R@5</th>
+    <th>R@10</th>
+    <th>R@20</th>
+    <th>R@1</th>
+    <th>R@5</th>
+    <th>R@10</th>
+    <th>R@20</th>
+    <th>R@1</th>
+    <th>R@5</th>
+    <th>R@10</th>
+    <th>R@20</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>92.1</td>
+    <td>96.2</td>
+    <td>96.5</td>
+    <td>97.2</td>
+    <td>92.4</td>
+    <td>96.3</td>
+    <td>97.4</td>
+    <td>98.1</td>
+    <td>95.1</td>
+    <td>98.5</td>
+    <td>99.2</td>
+    <td>99.6</td>
   </tr>
 </tbody>
 </table>
