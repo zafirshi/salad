@@ -1,11 +1,16 @@
-FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
+FROM nvidia/cuda:11.4.3-cudnn8-devel-ubuntu20.04
+
+# 定义时区
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 
 # 替换阿里源为ubuntu的软件源
-RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
+# RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+#     sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
 # 替换浙大源为ubuntu的软件源
-# RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|https://mirrors.zju.edu.cn/ubuntu/|g' /etc/apt/sources.list && \
-#     sed -i 's|http://security.ubuntu.com/ubuntu/|https://mirrors.zju.edu.cn/ubuntu/|g' /etc/apt/sources.list
+RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|https://mirrors.zju.edu.cn/ubuntu/|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.ubuntu.com/ubuntu/|https://mirrors.zju.edu.cn/ubuntu/|g' /etc/apt/sources.list
 
 
 # 安装依赖
